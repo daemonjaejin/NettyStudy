@@ -81,10 +81,26 @@ public class EchoServer {
 //                    .childOption(ChannelOption.SO_LINGER, 0)
             ;
 
-            //부트스트랩 클래스의 bind 메서드로 접속할 포트 지정
+            // 부트스트랩 클래스의 bind 메서드로 접속할 포트 지정
             ChannelFuture cf = sb.bind(8888).sync();
 
             cf.channel().closeFuture().sync();
+
+            // 위 부분을 풀어서 작성한 것이다.
+            // 에코서버가 8888번 포트를 사용하도록 비동기 bind 메서드를 호출한다.
+            // 부트스트랩 클래스의 bind 메서드는 포트 바인딩이 완료되기 전에 ChannelFuture 객체를 돌려준다.
+            ChannelFuture bindFuture = sb.bind(8888);
+            // ChannelFuture 인터페이스의 sync 메서드는 주어진 ChannelFuture 객체의 작업이 완료될 때까지 블롴킹하는 메서드다.
+            // bind 메서드의 처리가 완료될 때 sync 메서드도 같이 완료된다.
+            bindFuture.sync();
+            // bindFuture 객체를 통해서 채널을 얻어온다. 여기서 얻어진 채널은 8888번 포트에 바인딩된 서버 채널이다.
+            Channel serverChannel = bindFuture.channel();
+            // 바인드가 완료된 서버 채널의 CloseFuture 객체를 돌려준다.
+            // 네티 내부에서는 채널이 생성될 때 CloseFuture 객체도 같이 생성되므로 closeFuture 메서드가 돌려주는 CloseFuture 객체는 항상 동일한 객체다.
+            ChannelFuture closeFuture = serverChannel.closeFuture();
+            // CloseFuture 객체는 채널의 연결이 종료될 때 연결 종료 이벤트를 받는다.
+            // 채널이 생성될 때 같이 생성되는 기본 CloseFuture 객체에는 아무 동작도 설정되어 있지 않으므로 이벤트를 받았을 때 아무 동작도 하지 않는다.
+            closeFuture.sync();
 
         }catch (Exception e){
             System.out.println(e.getMessage());

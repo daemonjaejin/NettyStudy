@@ -3,6 +3,7 @@ package study.funzin.seminar;
 import com.sun.org.apache.xerces.internal.impl.io.UTF8Reader;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -57,6 +58,28 @@ public class EchoServerHandler extends SimpleChannelInboundHandler<Object>{
 
         // 채널에 파이프라인에 channelRead 이벤트를 발생시킨다.
 //        ctx.fireChannelRead(msg);
+
+        // 수신된 데이터를 클라이언트 소켓 버퍼에 기록하고 버퍼의 데이터를 채널로 전송하는 비동기 메서드인 writeAndFlush 를 호출하고 ChannelFuture 객체를 돌려받는다.
+//        ChannelFuture channelFuture = ctx.writeAndFlush(msg);
+        // ChannelFuture 객체에 채널을 종료하는 리스너를 등록한다. ChannelFutureListener.CLOSE 리스너는 네티가 제공하는 기본 리스너로서 ChannelFuture 객체가 완료 이벤트를 수신할 때 수행된다.
+//        channelFuture.addListener(ChannelFutureListener.CLOSE);
+
+        ChannelFuture channelFuture = ctx.writeAndFlush(msg);
+
+        // 네티가 수신한 msg 객체는 ByteBuf 객체다.
+        // 클라이언트로부터 수신한 데이터를 클라이언트로 되돌려주므로 전송한 데이터의 크기는 msg 객체의 크기와 같다.
+        final int writeMessageSize = ((ByteBuf)msg).readableBytes();
+        // 사용자 정의 채널 리스너를 생성하여 ChannelFuture 객체에 할당한다.
+        channelFuture.addListener(new ChannelFutureListener() {
+            @Override
+            // operationComplete 메서드는 ChannelFuture 객체에서 발생하는 작업 완료 이벤트 메서드로서 사용자 정의 채널 리스너 구현에 포함되어야 한다.
+            public void operationComplete(ChannelFuture future) throws Exception {
+                // 전송한 데이터의 크기를 출력한다.
+                System.out.println("전송한 바이트 : " + writeMessageSize);
+                // ChannelFuture 객체에 포함된 채널을 가져와서 채널 닫기 이벤트를 발생시킨다.
+                future.channel().close();
+            }
+        });
 
     }
 
