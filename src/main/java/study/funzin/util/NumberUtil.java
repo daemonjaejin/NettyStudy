@@ -1294,19 +1294,19 @@ public class NumberUtil {
 			return "";
 		}
 
-        System.out.println("toFixed.number : " + number);
-        System.out.println("toFixed.scale : " + scale);
+//        System.out.println("toFixed.number : " + number);
+//        System.out.println("toFixed.scale : " + scale);
 
 		DecimalFormat decimalFormat = new DecimalFormat(StringUtil.paddingRight("0.", "0", scale.intValue() + 2));
 //        DecimalFormat decimalFormat = new DecimalFormat("0.0");
 
 		String value = decimalFormat.format(number);
 
-        System.out.println("toFixed.value1 : " + value);
+//        System.out.println("toFixed.value1 : " + value);
 
 		value = value.substring(0, value.indexOf(".") + scale.intValue() + 1);
 
-        System.out.println("toFixed.value2 : " + value);
+//        System.out.println("toFixed.value2 : " + value);
 		
 		return value;
 	}

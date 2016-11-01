@@ -727,9 +727,9 @@ public class StringUtil {
 
 	public static String paddingRight(String value, String padding, int length) {
 
-        System.out.println("paddingRight.value : " + value);
-        System.out.println("paddingRight.padding : " + padding);
-        System.out.println("paddingRight.length : " + length);
+//        System.out.println("paddingRight.value : " + value);
+//        System.out.println("paddingRight.padding : " + padding);
+//        System.out.println("paddingRight.length : " + length);
 
 		if (value == null || "".equals(value.trim())) {
 			return repeat(padding, length);
@@ -738,21 +738,21 @@ public class StringUtil {
 			return value;
 		}
 
-        System.out.println("paddingRight : " + value + repeat(padding, length - value.length()));
+//        System.out.println("paddingRight : " + value + repeat(padding, length - value.length()));
 
 		return value + repeat(padding, length - value.length());
 	}
 
 	public static String repeat(String value, int length) {
 
-        System.out.println("repeat.value : " + value);
-        System.out.println("repeat.length : " + length);
+//        System.out.println("repeat.value : " + value);
+//        System.out.println("repeat.length : " + length);
 
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < length; i++) {
 			sb.append(value);
 		}
-        System.out.println("repeat : " + sb.toString());
+//        System.out.println("repeat : " + sb.toString());
 		return sb.toString();
 	}
 
