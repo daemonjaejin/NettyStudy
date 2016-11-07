@@ -7,7 +7,7 @@ public class WriteByteBufferTest {
 
     @org.junit.Test
     public void writeTest(){
-
+        System.out.println(new Integer(0));
     }
 
 }
