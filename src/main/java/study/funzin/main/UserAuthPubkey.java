@@ -18,7 +18,7 @@ public class UserAuthPubkey {
             String user = "tango";
             String host = "112.217.161.178";
             int port = 10022;
-            String privateKey = "D:\\tango\\key\\id_rsa";
+            String privateKey = "D:\\data\\tango\\key\\id_rsa";
 
             jsch.addIdentity(privateKey, "tango1!");
 //            jsch.addIdentity(privateKey, "tango1!".getBytes()); // 이것도 사용 가능
@@ -64,7 +64,7 @@ public class UserAuthPubkey {
             // 채널을 ChannelForwardedTCPIP용 채널 객체로 캐스팅한다.
 //            ChannelForwardedTCPIP channelForwardedTCPIP = (ChannelForwardedTCPIP)channel;
 
-            String fileFullName = "D:\\tango\\key\\test.txt";
+            String fileFullName = "D:\\data\\tango\\key\\test.txt";
             String fileName = "test.txt";
 
             FileInputStream in = new FileInputStream(fileFullName);
