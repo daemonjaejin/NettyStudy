@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation=
+       "
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/mvc/spring-aop.xsd
+       "
+>
+
+    <!--<mvc:annotation-driven />-->
+    <!--<mvc:resources mapping="/resources/**" location="classpath:resources" />-->
+
+    <!--<aop:scoped-proxy proxy-target-class="false" />-->
+
+    <bean id="springConfigTest2" class="study.funzin.config.SpringConfigTest2" >
+        <property name="userDao" ref="userDao" />
+    </bean>
+        
+    <bean id="userDao" class="study.funzin.dao.UserDao" />
 
 </beans>
