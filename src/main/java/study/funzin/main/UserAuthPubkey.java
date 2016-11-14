@@ -56,6 +56,7 @@ public class UserAuthPubkey {
 //            ChannelShell channelShell = (ChannelShell) channel;
 
             // 채널을 SSH용 채널 객체로 캐스팅한다.
+
 //            ChannelExec channelExec = (ChannelExec) channel;
 
             // 채널을 DirectTCPIP용 채널 객체로 캐스팅한다.
@@ -64,8 +65,8 @@ public class UserAuthPubkey {
             // 채널을 ChannelForwardedTCPIP용 채널 객체로 캐스팅한다.
 //            ChannelForwardedTCPIP channelForwardedTCPIP = (ChannelForwardedTCPIP)channel;
 
-            String fileFullName = "D:\\data\\tango\\key\\test.txt";
-            String fileName = "test.txt";
+            String fileFullName = "D:\\data\\tango\\key\\log\\gemsapi.log.2016-08-01_17.1.log";
+            String fileName = "gemsapi.log.2016-08-01_17.1.log";
 
             FileInputStream in = new FileInputStream(fileFullName);
 //            channelShell.setInputStream(in);
@@ -73,13 +74,13 @@ public class UserAuthPubkey {
 
             try {
                 System.out.println("Directory Path Move1");
-                channelSftp.cd("/home/tango/20161110");
+                channelSftp.cd("/home/tango/20161114");
             }catch (SftpException SE){
                 System.out.println("Directory Create");
-                channelSftp.mkdir("/home/tango/20161110");
+                channelSftp.mkdir("/home/tango/20161114");
 
                 System.out.println("Directory Path Move2");
-                channelSftp.cd("/home/tango/20161110");
+                channelSftp.cd("/home/tango/20161114");
             }
 
 //            System.out.println("Directory Create");
