@@ -2,12 +2,17 @@ package study.funzin.main;
 
 import com.jcraft.jsch.*;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.Vector;
 
 /**
  * Created by JE on 2016-11-10.
  */
 public class UserAuthPubkey {
+
+    private static Session session;
 
     public static void main(String[] arg) {
         try {
@@ -25,7 +30,7 @@ public class UserAuthPubkey {
             System.out.println("identity added ");
 
             // 세션 객체를 생성한다.(사용자 이름, 접속할 호스트, 접속할 포트)
-            Session session = jsch.getSession(user, host, port);
+            session = jsch.getSession(user, host, port);
 
             // 패스워드 설정
 //            session.setPassword("tango123$");
@@ -65,23 +70,24 @@ public class UserAuthPubkey {
             // 채널을 ChannelForwardedTCPIP용 채널 객체로 캐스팅한다.
 //            ChannelForwardedTCPIP channelForwardedTCPIP = (ChannelForwardedTCPIP)channel;
 
-            String fileFullName = "D:\\data\\tango\\key\\log\\gemsapi.log.2016-08-01_17.1.log";
-            String fileName = "gemsapi.log.2016-08-01_17.1.log";
+//            String fileFullName = "D:\\data\\tango\\key\\log\\gemsapi.log.2016-08-01_17.1.log";
+            String fileFullName = "D:\\data\\tango\\key\\test.txt";
+            String fileName = "test.txt";
 
             FileInputStream in = new FileInputStream(fileFullName);
 //            channelShell.setInputStream(in);
 //            channelExec.setCommand("명령어.sh");
 
-            try {
-                System.out.println("Directory Path Move1");
-                channelSftp.cd("/home/tango/20161114");
-            }catch (SftpException SE){
-                System.out.println("Directory Create");
-                channelSftp.mkdir("/home/tango/20161114");
-
-                System.out.println("Directory Path Move2");
-                channelSftp.cd("/home/tango/20161114");
-            }
+//            try {
+//                System.out.println("Directory Path Move1");
+//                channelSftp.cd("/home/tango/20161114");
+//            }catch (SftpException SE){
+//                System.out.println("Directory Create");
+//                channelSftp.mkdir("/home/tango/20161114");
+//
+//                System.out.println("Directory Path Move2");
+//                channelSftp.cd("/home/tango/20161114");
+//            }
 
 //            System.out.println("Directory Create");
 //            channelSftp.mkdir("/home/tango/20161110");
@@ -89,11 +95,64 @@ public class UserAuthPubkey {
 //            System.out.println("Directory Path Move2");
 //            channelSftp.cd("/home/tango/20161110");
 
+//            boolean check = false;
+//
+//            ChannelSftp.LsEntrySelector lsSelector = new ChannelSftp.LsEntrySelector(){
+//                public int select(ChannelSftp.LsEntry entry){
+////                    entry.getFilename();
+//                    return CONTINUE;
+//                }
+//            };
+
+//            Vector<ChannelSftp.LsEntry> v = channelSftp.ls("test.txt");
+//
+//            for (ChannelSftp.LsEntry entry : v){
+//                System.out.println(entry.getFilename());
+//            }
+
+//            channelSftp.ls(".", new ChannelSftp.LsEntrySelector() {
+//                public int select(ChannelSftp.LsEntry le) {
+////                    System.out.println(le);
+//                    if (le.getFilename().equals("test.txt")) {
+//
+//                    }
+//                    return ChannelSftp.LsEntrySelector.CONTINUE;
+//                }
+//            });
+
+//            if(channelSftp.ls(fileName).size() > 0){
+//                System.out.println("file Y");
+//            }else{
+//                System.out.println("file N");
+//            }
+
+            boolean check = false;
+
+            try {
+                channelSftp.ls("test.txt");
+                check = true;
+            }catch (Exception e){
+                e.getMessage();
+            }
+
+            System.out.println("check : " + check);
 
             channelSftp.put(in, fileName);
 
-            channelSftp.exit();
             System.out.println("done");
+
+            StringBuilder sb = new StringBuilder();
+            sb.append("\n");
+            sb.append("test2");
+            sb.append("\n");
+            sb.append("test3");
+            sb.append("\n");
+
+            InputStream is = new ByteArrayInputStream(sb.toString().getBytes("UTF-8"));
+
+            int mode = ChannelSftp.APPEND;
+
+            channelSftp.put(is, fileName, mode);
 
             in.close();
 
@@ -104,7 +163,11 @@ public class UserAuthPubkey {
             session.disconnect();
 
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             System.err.println(e);
+            session.disconnect();
+        } finally {
+            session.disconnect();
         }
     }
 
