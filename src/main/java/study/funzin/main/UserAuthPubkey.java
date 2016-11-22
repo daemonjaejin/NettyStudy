@@ -74,7 +74,7 @@ public class UserAuthPubkey {
             String fileFullName = "D:\\data\\tango\\key\\test.txt";
             String fileName = "test.txt";
 
-            FileInputStream in = new FileInputStream(fileFullName);
+//            FileInputStream in = new FileInputStream(fileFullName);
 //            channelShell.setInputStream(in);
 //            channelExec.setCommand("명령어.sh");
 
@@ -137,7 +137,16 @@ public class UserAuthPubkey {
 
             System.out.println("check : " + check);
 
-            channelSftp.put(in, fileName);
+            StringBuilder sbs = new StringBuilder();
+            sbs.append("test");
+
+            InputStream iss = new ByteArrayInputStream(sbs.toString().getBytes("UTF-8"));
+
+            int modes = ChannelSftp.OVERWRITE;
+
+            channelSftp.put(iss, fileName, modes);
+
+//            channelSftp.put(in, fileName);
 
             System.out.println("done");
 
@@ -154,7 +163,7 @@ public class UserAuthPubkey {
 
             channelSftp.put(is, fileName, mode);
 
-            in.close();
+//            in.close();
 
             channelSftp.quit();
 
