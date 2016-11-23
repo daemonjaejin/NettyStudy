@@ -57,7 +57,7 @@ public class CsvMain {
             }
 
             FileWriter fileWriter = new FileWriter(newFile);
-            CSVWriter writer = new CSVWriter(fileWriter);
+            CSVWriter writer = new CSVWriter(fileWriter, ',', CSVWriter.NO_QUOTE_CHARACTER);
             writer.writeAll(allElements2);
             writer.close();
 
