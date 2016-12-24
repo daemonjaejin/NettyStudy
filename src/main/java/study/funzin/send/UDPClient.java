@@ -25,25 +25,26 @@ public class UDPClient {
 
             int lastNum = 0;
 
-            int loop = 0;
+            int loop = 1000000;
 
-            //String data = "590000040000000000042c000900080045005020000059000f001300323031362d31302d30352031353a35393a35343c0405003001010003";
+//            String data = "590000040000000000042c000900080045005020000059000f001300323031362d31302d30352031353a35393a35343c040500300101000(0|1|2|3)";
+//            String data = "590000040000000000042c000900080045005020000059000f001300323031362d31302d30352031353a35393a35343c040500300101000";
+//            String data = "010000040000000000042c000900080045005020000059000f001300323031362d31302d30352031353a35393a35343c040500300101000" + i;
 
-            while (lastNum < 1){
+            while (lastNum < loop){
                 for (int i = 0; i < 4; i++) {
 
 
                     DatagramSocket clientSocket = new DatagramSocket();
-                    //InetAddress IPAddress = InetAddress.getByName("219.240.99.75");
-                    InetAddress IPAddress = InetAddress.getByName("127.0.0.1");
+                    InetAddress IPAddress = InetAddress.getByName("219.240.99.75");
+//                    InetAddress IPAddress = InetAddress.getByName("127.0.0.1");
                     String data = "590000040000000000042c000900080045005020000059000f001300323031362d31302d30352031353a35393a35343c040500300101000" + i;
+//                    String data = "010000040000000000042c000900080045005020000059000f001300323031362d31302d30352031353a35393a35343c040500300101000" + i;
                     System.out.println("data : " + data);
                     DatagramPacket sendPacket = new DatagramPacket(toBytes(data), toBytes(data).length, IPAddress, 1800);
                     clientSocket.send(sendPacket);
                     clientSocket.close();
                     Thread.sleep(2000);
-
-                    loop++;
 
                 }
                 lastNum++;

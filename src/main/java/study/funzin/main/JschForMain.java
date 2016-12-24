@@ -1,16 +1,25 @@
 package study.funzin.main;
 
-import com.jcraft.jsch.*;
+import com.jcraft.jsch.Channel;
+import com.jcraft.jsch.ChannelSftp;
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.Session;
 
-import java.io.FileInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 
 /**
  * Created by JE on 2016-11-10.
  */
-public class UserAuthPubkey {
+public class JschForMain {
+
+    private static Session session;
 
     public static void main(String[] arg) {
         try {
+
+
+
 
             // 객체 생성
             JSch jsch = new JSch();
@@ -25,7 +34,7 @@ public class UserAuthPubkey {
             System.out.println("identity added ");
 
             // 세션 객체를 생성한다.(사용자 이름, 접속할 호스트, 접속할 포트)
-            Session session = jsch.getSession(user, host, port);
+            session = jsch.getSession(user, host, port);
 
             // 패스워드 설정
 //            session.setPassword("tango123$");
@@ -35,7 +44,6 @@ public class UserAuthPubkey {
             java.util.Properties config = new java.util.Properties();
             // 호스트 정보를 검사하지 않는다.
             config.put("StrictHostKeyChecking", "no");
-//            config.put("StrictHostKeyChecking", "yes");
             session.setConfig(config);
 
             // 접속한다.
@@ -52,58 +60,61 @@ public class UserAuthPubkey {
             // 채널을 FTP용 채널 객체로 캐스팅한다.
             ChannelSftp channelSftp = (ChannelSftp) channel;
 
-            // 채널을 Shell용 채널 객체로 캐스팅한다.
-//            ChannelShell channelShell = (ChannelShell) channel;
-
-            // 채널을 SSH용 채널 객체로 캐스팅한다.
-//            ChannelExec channelExec = (ChannelExec) channel;
-
-            // 채널을 DirectTCPIP용 채널 객체로 캐스팅한다.
-//            ChannelDirectTCPIP channelDirectTCPIP = (ChannelDirectTCPIP)channel;
-
-            // 채널을 ChannelForwardedTCPIP용 채널 객체로 캐스팅한다.
-//            ChannelForwardedTCPIP channelForwardedTCPIP = (ChannelForwardedTCPIP)channel;
-
-            String fileFullName = "D:\\data\\tango\\key\\test.txt";
             String fileName = "test.txt";
 
-            FileInputStream in = new FileInputStream(fileFullName);
-//            channelShell.setInputStream(in);
-//            channelExec.setCommand("명령어.sh");
+            boolean check = false;
 
             try {
-                System.out.println("Directory Path Move1");
-                channelSftp.cd("/home/tango/20161110");
-            }catch (SftpException SE){
-                System.out.println("Directory Create");
-                channelSftp.mkdir("/home/tango/20161110");
-
-                System.out.println("Directory Path Move2");
-                channelSftp.cd("/home/tango/20161110");
+                channelSftp.ls("test.txt");
+                check = true;
+            }catch (Exception e){
+                e.getMessage();
             }
 
-//            System.out.println("Directory Create");
-//            channelSftp.mkdir("/home/tango/20161110");
-//
-//            System.out.println("Directory Path Move2");
-//            channelSftp.cd("/home/tango/20161110");
+            System.out.println("check : " + check);
 
+            StringBuilder sbs = new StringBuilder();
+            sbs.append("test");
 
-            channelSftp.put(in, fileName);
+            InputStream iss = new ByteArrayInputStream(sbs.toString().getBytes("UTF-8"));
 
-            channelSftp.exit();
+            int mode = ChannelSftp.OVERWRITE;
+
+            if(check) mode = ChannelSftp.APPEND;
+
+            channelSftp.put(iss, fileName, mode);
+
             System.out.println("done");
 
-            in.close();
+            StringBuilder sb = new StringBuilder();
+            sb.append("\n");
+            sb.append("test2");
+            sb.append("\n");
+            sb.append("test3");
+            sb.append("\n");
+
+            InputStream is = new ByteArrayInputStream(sb.toString().getBytes("UTF-8"));
+
+            for (int i=0; i<10000; i++){
+                channelSftp.put(is, fileName, mode);
+            }
+
+//            in.close();
 
             channelSftp.quit();
 
-            System.out.println("quit");
+//                System.out.println("quit");
 
             session.disconnect();
 
+
+
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             System.err.println(e);
+//            session.disconnect();
+        } finally {
+//            session.disconnect();
         }
     }
 
