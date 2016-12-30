@@ -23,6 +23,9 @@ public class ShowLinesListener{
 
         try {
 
+            Thread thread = new Thread();
+
+
             while (true){
                 String filePath = "D:\\source\\";
                 String fileName = DateUtil.formatDate(new Date(), DATE_TYPE);
@@ -35,6 +38,8 @@ public class ShowLinesListener{
                     compare = fileName;
                 }
                 Thread.sleep(1000);
+
+                thread.start();
             }
 
         }catch (Exception e){
