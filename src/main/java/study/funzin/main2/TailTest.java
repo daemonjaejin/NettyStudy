@@ -19,6 +19,8 @@ public class TailTest {
 
     public static boolean allCheck = true;
 
+    public static boolean stopCheck = false;
+
     public static void main(String args[]){
 
         try {
@@ -31,20 +33,28 @@ public class TailTest {
                 File file = new File(filePath+fileName);
 
                 if(file.isFile()){
+
                     System.out.println(filePath+fileName);
                     listener = new ShowLinesListener2();
                     tailer = Tailer.create(file, listener, 1);
                     while (allCheck){
                         if(!DateUtil.formatDate(new Date(), DATE_TYPE).equals(fileName)){
-                            System.out.println(DateUtil.formatDate(new Date(), DATE_TYPE));
-                            tailer.stop();
+                            System.out.println("fileName : " + fileName);
+                            System.out.println("DateUtil.formatDate : " + DateUtil.formatDate(new Date(), DATE_TYPE));
                             allCheck = false;
-//                            break;
+                            stopCheck = true;
                         }
                     }
+
                 }
 
                 Thread.sleep(1000);
+
+                if(stopCheck){
+                    allCheck = true;
+                    stopCheck = false;
+                    tailer.stop();
+                }
 
             }
 
