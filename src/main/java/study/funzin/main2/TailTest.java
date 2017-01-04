@@ -1,7 +1,7 @@
 package study.funzin.main2;
 
-import org.apache.commons.io.input.Tailer;
-import org.apache.commons.io.input.TailerListener;
+import study.funzin.handler.Tailer;
+import study.funzin.handler.TailerListener;
 import study.funzin.util.DateUtil;
 
 import java.io.File;
@@ -12,10 +12,10 @@ import java.util.Date;
  */
 public class TailTest {
 
-    public static final String DATE_TYPE = "yyyyMMdd-HHmm";
+    public static final String DATE_TYPE = "yyyyMMdd-HH";
 
-    private static TailerListener listener;
-    private static Tailer tailer;
+    public static TailerListener listener;
+    public static Tailer tailer;
 
     public static boolean allCheck = true;
 

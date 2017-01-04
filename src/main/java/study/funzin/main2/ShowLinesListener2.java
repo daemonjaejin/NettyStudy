@@ -1,6 +1,7 @@
 package study.funzin.main2;
 
-import org.apache.commons.io.input.TailerListenerAdapter;
+
+import study.funzin.handler.TailerListenerAdapter;
 
 /**
  * Created by JE on 2016-12-29.
