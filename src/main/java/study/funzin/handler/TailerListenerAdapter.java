@@ -14,7 +14,7 @@ public class TailerListenerAdapter implements TailerListener{
     public void fileRotated() {
     }
 
-    public void handle(String line) {
+    public void handle(String line, long position, String fileName) {
     }
 
     public void handle(Exception ex) {

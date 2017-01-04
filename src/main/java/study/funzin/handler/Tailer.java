@@ -141,7 +141,7 @@ public class Tailer implements Runnable{
                         RandomAccessFile save = reader;
                         reader = new RandomAccessFile(this.file, "r");
                         try {
-                            readLines(save);
+                            readLines(save, position);
                         } catch (IOException ioe) {
                             this.listener.handle(ioe);
                         }
@@ -155,13 +155,13 @@ public class Tailer implements Runnable{
                 }
 
                 if (length > position) {
-                    position = readLines(reader);
+                    position = readLines(reader, position);
                     last = this.file.lastModified();
                 } else if (newer) {
                     position = 0L;
                     reader.seek(position);
 
-                    position = readLines(reader);
+                    position = readLines(reader, position);
                     last = this.file.lastModified();
                 }
 
@@ -193,7 +193,7 @@ public class Tailer implements Runnable{
         this.run = false;
     }
 
-    private long readLines(RandomAccessFile reader) throws IOException {
+    private long readLines(RandomAccessFile reader, long position) throws IOException {
         ByteArrayOutputStream lineBuf = new ByteArrayOutputStream(64);
         long pos = reader.getFilePointer();
         long rePos = pos;
@@ -206,7 +206,7 @@ public class Tailer implements Runnable{
                 switch (ch) {
                     case 10:
                         seenCR = false;
-                        this.listener.handle(new String(lineBuf.toByteArray(), this.cset));
+                        this.listener.handle(new String(lineBuf.toByteArray(), this.cset), position, this.file.getName());
                         lineBuf.reset();
                         rePos = pos + i + 1L;
                         break;
@@ -219,7 +219,7 @@ public class Tailer implements Runnable{
                     default:
                         if (seenCR) {
                             seenCR = false;
-                            this.listener.handle(new String(lineBuf.toByteArray(), this.cset));
+                            this.listener.handle(new String(lineBuf.toByteArray(), this.cset), position, this.file.getName());
                             lineBuf.reset();
                             rePos = pos + i + 1L;
                         }
