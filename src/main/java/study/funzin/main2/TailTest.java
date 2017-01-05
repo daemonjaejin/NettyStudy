@@ -26,17 +26,19 @@ public class TailTest {
         try {
 
             String filePath = "D:\\source\\";
+//            filePath = "D:\\data\\oss\\skt\\fm\\";
 
             while (true) {
 
                 String fileName = DateUtil.formatDate(new Date(), DATE_TYPE);
+//                File file = new File(filePath+"ALARM."+fileName);
                 File file = new File(filePath+fileName);
 
                 if(file.isFile()){
 
                     System.out.println(filePath+fileName);
                     listener = new ShowLinesListener2();
-                    tailer = Tailer.create(file, listener, 1);
+                    tailer = Tailer.create(file, listener);
                     while (allCheck){
                         if(!DateUtil.formatDate(new Date(), DATE_TYPE).equals(fileName)){
                             System.out.println("fileName : " + fileName);
