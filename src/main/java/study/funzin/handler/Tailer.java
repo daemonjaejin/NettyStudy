@@ -155,7 +155,10 @@ public class Tailer implements Runnable{
                 }
 
                 if (length > position) {
+                    System.out.println("length : " + length);
+                    System.out.println("position : " + position);
                     position = readLines(reader, position);
+                    System.out.println("position2 : " + position);
                     last = this.file.lastModified();
                 } else if (newer) {
                     position = 0L;
@@ -228,6 +231,8 @@ public class Tailer implements Runnable{
             }
             pos = reader.getFilePointer();
         }
+        System.out.println("length : " + this.file.length());
+        System.out.println("position : " + position);
         IOUtils.closeQuietly(lineBuf);
         reader.seek(rePos);
 
