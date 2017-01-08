@@ -115,7 +115,6 @@ public class Tailer implements Runnable{
         try {
             long last = 0L;
             long position = 0L;
-            long lineNum = 0L;
 
             while ((getRun()) && (reader == null)) {
                 try {
@@ -142,8 +141,7 @@ public class Tailer implements Runnable{
                         RandomAccessFile save = reader;
                         reader = new RandomAccessFile(this.file, "r");
                         try {
-                            lineNum++;
-                            readLines(save, length, lineNum);
+                            readLines(save, position);
                         } catch (IOException ioe) {
                             this.listener.handle(ioe);
                         }
@@ -157,14 +155,13 @@ public class Tailer implements Runnable{
                 }
 
                 if (length > position) {
-                    lineNum++;
-                    position = readLines(reader, length, lineNum);
+                    position = readLines(reader, position);
                     last = this.file.lastModified();
                 } else if (newer) {
                     position = 0L;
                     reader.seek(position);
-                    lineNum++;
-                    position = readLines(reader, length, lineNum);
+
+                    position = readLines(reader, position);
                     last = this.file.lastModified();
                 }
 
@@ -196,22 +193,20 @@ public class Tailer implements Runnable{
         this.run = false;
     }
 
-    private long readLines(RandomAccessFile reader, long position, long lineNum) throws IOException {
+    private long readLines(RandomAccessFile reader, long position) throws IOException {
         ByteArrayOutputStream lineBuf = new ByteArrayOutputStream(64);
         long pos = reader.getFilePointer();
         long rePos = pos;
 
         boolean seenCR = false;
         int num;
-        long lineNumber = 0L;
         while ((getRun()) && ((num = reader.read(this.inbuf)) != -1)) {
             for (int i = 0; i < num; ++i) {
                 byte ch = this.inbuf[i];
                 switch (ch) {
                     case 10:
                         seenCR = false;
-                        lineNumber++;
-                        this.listener.handle(new String(lineBuf.toByteArray(), this.cset), position, this.file.getName(), lineNum, lineNumber);
+                        this.listener.handle(new String(lineBuf.toByteArray(), this.cset), position, this.file.getName());
                         lineBuf.reset();
                         rePos = pos + i + 1L;
                         break;
@@ -224,8 +219,7 @@ public class Tailer implements Runnable{
                     default:
                         if (seenCR) {
                             seenCR = false;
-                            lineNumber++;
-                            this.listener.handle(new String(lineBuf.toByteArray(), this.cset), position, this.file.getName(), lineNum, lineNumber);
+                            this.listener.handle(new String(lineBuf.toByteArray(), this.cset), position, this.file.getName());
                             lineBuf.reset();
                             rePos = pos + i + 1L;
                         }

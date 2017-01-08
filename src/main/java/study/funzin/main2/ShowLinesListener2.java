@@ -9,18 +9,11 @@ import study.funzin.handler.TailerListenerAdapter;
 public class ShowLinesListener2 extends TailerListenerAdapter {
 
     @Override
-    public void handle(String line, long position, String fileName, long lineNum, long lineNumber){
-        System.out.println("lineNum : " + lineNum);
-        System.out.println(line);
-        System.out.println("position : " + position);
-        if(fileName.equals("20170105-13") && position > 20){
-//            System.out.println(line);
-//            System.out.println(position);
-//            System.out.println(fileName);
-        }else{
-//            System.out.println("line : " + line);
-//            System.out.println("position : " + position);
-//            System.out.println("fileName: " + fileName);
+    public void handle(String line, long position, String fileName){
+        if(fileName.equals("20170104-18") && position > 80){
+            System.out.println(line);
+            System.out.println(position);
+            System.out.println(fileName);
         }
     }
 
