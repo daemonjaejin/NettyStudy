@@ -10,6 +10,8 @@ public class ShowLinesListener2 extends TailerListenerAdapter {
 
     @Override
     public void handle(String line, long position, String fileName){
+        System.out.println("line : " + line);
+        System.out.println("position : " + position);
         if(fileName.equals("20170104-18") && position > 80){
             System.out.println(line);
             System.out.println(position);

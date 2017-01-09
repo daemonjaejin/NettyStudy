@@ -5,6 +5,7 @@ import study.funzin.handler.TailerListener;
 import study.funzin.util.DateUtil;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.util.Date;
 
 /**
@@ -12,7 +13,9 @@ import java.util.Date;
  */
 public class TailTest {
 
-    public static final String DATE_TYPE = "yyyyMMdd-HH";
+    public static final String DATE_TYPE = "yyyyMMdd-HHmm";
+
+    public static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
     public static TailerListener listener;
     public static Tailer tailer;
@@ -27,6 +30,8 @@ public class TailTest {
 
             String filePath = "D:\\source\\";
 //            filePath = "D:\\data\\oss\\skt\\fm\\";
+
+            TailTest tailTest = new TailTest();
 
             while (true) {
 
@@ -45,6 +50,7 @@ public class TailTest {
                             System.out.println("DateUtil.formatDate : " + DateUtil.formatDate(new Date(), DATE_TYPE));
                             allCheck = false;
                             stopCheck = true;
+                            tailTest.newFile(filePath);
                         }
                     }
 
@@ -65,6 +71,15 @@ public class TailTest {
         }
 
 
+    }
+
+    public void newFile(String path) throws Exception{
+        File realFile = new File(path+"real");
+        FileWriter fw = new FileWriter(realFile, false);
+        fw.write("fileName=" + "ttt");
+        fw.write(LINE_SEPARATOR);
+        fw.write("position=" + 333);
+        fw.close();
     }
 
 

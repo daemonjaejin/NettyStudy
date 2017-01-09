@@ -191,6 +191,14 @@ public class Tailer implements Runnable{
 
     public void stop() {
         this.run = false;
+        System.out.println("count : " + Thread.activeCount());
+//        System.out.println(Thread.currentThread());
+//        System.out.println(Thread.currentThread().getId());
+//        System.out.println(Thread.currentThread().getName());
+//        System.out.println(Thread.currentThread().getPriority());
+//        System.out.println(Thread.currentThread().isAlive());
+//        System.out.println(Thread.currentThread().isDaemon());
+//        System.out.println(Thread.currentThread().isInterrupted());
     }
 
     private long readLines(RandomAccessFile reader, long position) throws IOException {
@@ -206,9 +214,9 @@ public class Tailer implements Runnable{
                 switch (ch) {
                     case 10:
                         seenCR = false;
-                        this.listener.handle(new String(lineBuf.toByteArray(), this.cset), position, this.file.getName());
-                        lineBuf.reset();
                         rePos = pos + i + 1L;
+                        this.listener.handle(new String(lineBuf.toByteArray(), this.cset), rePos, this.file.getName());
+                        lineBuf.reset();
                         break;
                     case 13:
                         if (seenCR) {
@@ -219,9 +227,9 @@ public class Tailer implements Runnable{
                     default:
                         if (seenCR) {
                             seenCR = false;
-                            this.listener.handle(new String(lineBuf.toByteArray(), this.cset), position, this.file.getName());
-                            lineBuf.reset();
                             rePos = pos + i + 1L;
+                            this.listener.handle(new String(lineBuf.toByteArray(), this.cset), rePos, this.file.getName());
+                            lineBuf.reset();
                         }
                         lineBuf.write(ch);
                 }
