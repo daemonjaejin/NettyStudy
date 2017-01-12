@@ -11,7 +11,7 @@ import java.util.Date;
 /**
  * Created by JE on 2016-12-30.
  */
-public class TailTest {
+public class TailTest2 {
 
     public static final String DATE_TYPE = "yyyyMMdd-HHmm";
 
@@ -26,15 +26,15 @@ public class TailTest {
 
     public static void main(String args[]){
 
-        try {
+        TailerListener listener;
+        Tailer tailer = null;
 
-            TailerListener listener;
-            Tailer tailer = null;
+        try {
 
             String filePath = "D:\\source\\";
 //            filePath = "D:\\data\\oss\\skt\\fm\\";
 
-            TailTest tailTest = new TailTest();
+            TailTest2 tailTest = new TailTest2();
 
             while (true) {
 
@@ -46,8 +46,9 @@ public class TailTest {
 
                     System.out.println(filePath+fileName);
                     listener = new ShowLinesListener2();
+                    Thread.sleep(5000);
                     tailer = Tailer.create(file, listener);
-                    Tailer.check = true;
+                    Tailer.check = false;
                     Tailer.date = new Date();
                     while (allCheck){
                         if(!DateUtil.formatDate(new Date(), DATE_TYPE).equals(fileName)){

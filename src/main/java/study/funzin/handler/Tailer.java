@@ -2,6 +2,8 @@ package study.funzin.handler;
 
 import java.io.*;
 import java.nio.charset.Charset;
+import java.util.Date;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
@@ -23,6 +25,9 @@ public class Tailer implements Runnable{
     private final TailerListener listener;
     private final boolean reOpen;
     private volatile boolean run;
+
+    public static boolean check;
+    public static Date date;
 
     public Tailer(File file, TailerListener listener) {
         this(file, listener, 1000L);
@@ -215,7 +220,7 @@ public class Tailer implements Runnable{
                     case 10:
                         seenCR = false;
                         rePos = pos + i + 1L;
-                        this.listener.handle(new String(lineBuf.toByteArray(), this.cset), rePos, this.file.getName());
+                        this.listener.handle(new String(lineBuf.toByteArray(), this.cset), rePos, this.file.getName(), check, date);
                         lineBuf.reset();
                         break;
                     case 13:
@@ -228,7 +233,7 @@ public class Tailer implements Runnable{
                         if (seenCR) {
                             seenCR = false;
                             rePos = pos + i + 1L;
-                            this.listener.handle(new String(lineBuf.toByteArray(), this.cset), rePos, this.file.getName());
+                            this.listener.handle(new String(lineBuf.toByteArray(), this.cset), rePos, this.file.getName(), check, date);
                             lineBuf.reset();
                         }
                         lineBuf.write(ch);
