@@ -7,14 +7,20 @@ public class ThreadMain {
 
     public static void main(String args[]){
 
-        Thread tr1 = new Thread();
+
+        System.out.println("ttt1 : " + Thread.activeCount());
+
 
 
         try {
 
+            System.out.println("ttt2 : " + Thread.activeCount());
+
             while(true){
 
                 try {
+
+                    Thread tr1 = new Thread();
 
                     tr1.start();
 
