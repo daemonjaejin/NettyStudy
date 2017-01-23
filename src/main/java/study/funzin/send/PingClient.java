@@ -12,13 +12,13 @@ public class PingClient {
     public static void main(String args[]){
         try {
             SocketAddress socketAddress = new InetSocketAddress("112.217.161.178", 10022);
-            Socket socket = new Socket();
 //            Socket s = null;
+            Socket socket = null;
             while (true){
                 try {
-
+                    socket = new Socket();
 //                    socket.setSoTimeout(100);
-                    socket.connect(socketAddress, 1);
+                    socket.connect(socketAddress, 1000);
 
 //                    s = new Socket ("219.240.99.75", 10022);
 //                    s = new Socket ("112.217.161.178", 10022);
@@ -30,10 +30,10 @@ public class PingClient {
                     e.printStackTrace();
                     System.out.println("서버 연결 실패!!!");
                 }finally {
-//                    if(s!=null){
-//                        System.out.println("서버 is not null");
-//                        s.close();
-//                    }
+                    if(socket!=null){
+                        System.out.println("서버 is not null");
+                        socket.close();
+                    }
                 }
                 Thread.sleep(2000);
             }
