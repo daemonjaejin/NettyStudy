@@ -1,6 +1,8 @@
 package study.funzin.send;
 
+import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketAddress;
 
 /**
  * Created by JE on 2017-01-19.
@@ -9,21 +11,29 @@ public class PingClient {
 
     public static void main(String args[]){
         try {
-            Socket s = null;
+            SocketAddress socketAddress = new InetSocketAddress("112.217.161.178", 10022);
+            Socket socket = new Socket();
+//            Socket s = null;
             while (true){
                 try {
-                    s = new Socket ("219.240.99.75", 10022);
-                    boolean result = s.isConnected();
+
+//                    socket.setSoTimeout(100);
+                    socket.connect(socketAddress, 1);
+
+//                    s = new Socket ("219.240.99.75", 10022);
+//                    s = new Socket ("112.217.161.178", 10022);
+//                    s.setSoTimeout(1000);
+                    boolean result = socket.isConnected();
                     if(result) System.out.println("서버에 연결됨");
                     else System.out.println("서버에 연결실패");
                 }catch (Exception e){
                     e.printStackTrace();
                     System.out.println("서버 연결 실패!!!");
                 }finally {
-                    if(s!=null){
-                        System.out.println("서버 is not null");
-                        s.close();
-                    }
+//                    if(s!=null){
+//                        System.out.println("서버 is not null");
+//                        s.close();
+//                    }
                 }
                 Thread.sleep(2000);
             }
