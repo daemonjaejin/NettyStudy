@@ -45,7 +45,7 @@ public class UDPClient {
                     DatagramPacket sendPacket = new DatagramPacket(toBytes(data), toBytes(data).length, IPAddress, 1800);
                     clientSocket.send(sendPacket);
                     clientSocket.close();
-                    Thread.sleep(5000);
+                    Thread.sleep(2000);
 
                 }
                 lastNum++;
