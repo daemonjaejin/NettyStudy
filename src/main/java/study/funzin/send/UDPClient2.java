@@ -1,16 +1,13 @@
 package study.funzin.send;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.nio.ByteBuffer;
 
 /**
  * Created by JE on 2016-10-05.
  */
-public class UDPClient {
+public class UDPClient2 {
 
     private static final int[] hex_map_data = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, /* 0 ~ 9 */
             -1, -1, -1, -1, -1, -1, -1, /* invalid char */
@@ -32,22 +29,21 @@ public class UDPClient {
 //            String data = "010000040000000000042c000900080045005020000059000f001300323031362d31302d30352031353a35393a35343c040500300101000" + i;
 
             while (lastNum < loop){
-                for (int i = 0; i < 4; i++) {
+//                for (int i = 0; i < 4; i++) {
 
 
                     DatagramSocket clientSocket = new DatagramSocket();
 //                    InetAddress IPAddress = InetAddress.getByName("219.240.99.75");
                     InetAddress IPAddress = InetAddress.getByName("127.0.0.1");
 //                    InetAddress IPAddress = InetAddress.getByName("192.168.219.15");
-                    String data = "590000040000000000042c000900080045005020000059000f001300323031362d31302d30352031353a35393a35343c040500300101000" + i;
-//                    String data = "010000040000000000042c000900080045005020000059000f001300323031362d31302d30352031353a35393a35343c040500300101000" + i;
+                    String data = "59000003865b010006033b000900080045005020000059000f001300323031372d30322d30362031343a30343a333411041400520001002253000100045400010000560001002d";
                     System.out.println("data : " + data);
                     DatagramPacket sendPacket = new DatagramPacket(toBytes(data), toBytes(data).length, IPAddress, 1800);
                     clientSocket.send(sendPacket);
                     clientSocket.close();
-                    Thread.sleep(60000);
+                    Thread.sleep(600000);
 
-                }
+//                }
                 lastNum++;
             }
 
