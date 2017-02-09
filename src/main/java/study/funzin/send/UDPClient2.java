@@ -1,8 +1,11 @@
 package study.funzin.send;
 
+import study.funzin.util.DateUtil;
+
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.util.Date;
 
 /**
  * Created by JE on 2016-10-05.
@@ -33,14 +36,15 @@ public class UDPClient2 {
 
 
                     DatagramSocket clientSocket = new DatagramSocket();
-//                    InetAddress IPAddress = InetAddress.getByName("219.240.99.75");
-                    InetAddress IPAddress = InetAddress.getByName("127.0.0.1");
+                    InetAddress IPAddress = InetAddress.getByName("219.240.99.75");
+//                    InetAddress IPAddress = InetAddress.getByName("127.0.0.1");
 //                    InetAddress IPAddress = InetAddress.getByName("192.168.219.15");
-                    String data = "59000003865b010006033b000900080045005020000059000f001300323031372d30322d30362031343a30343a333411041400520001002253000100045400010000560001002d";
+                    String data = "28000003865b010006033b000900080045005020000059000f001300323031372d30322d30362031343a30343a333411041400520001002253000100045400010000560001002d";
                     System.out.println("data : " + data);
                     DatagramPacket sendPacket = new DatagramPacket(toBytes(data), toBytes(data).length, IPAddress, 1800);
                     clientSocket.send(sendPacket);
                     clientSocket.close();
+                    System.out.println(DateUtil.formatDate(new Date(), "yyyy-MM-dd HH:mm:ss.SSS"));
                     Thread.sleep(600000);
 
 //                }
@@ -53,6 +57,7 @@ public class UDPClient2 {
 
         }catch (Exception e){
             e.getMessage();
+            System.out.println(e.getMessage());
         }
 
     }
