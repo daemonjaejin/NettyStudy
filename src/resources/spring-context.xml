@@ -19,7 +19,17 @@
 
     <!--<context:annotation-config />-->
     <!--<tx:annotation-driven />-->
-    <!--<context:component-scan base-package="study.funzin.beans">-->
+
+
+
+    <!--<mvc:resources mapping="resources" location="/resources/" />-->
+
+    <!--<mvc:annotation-driven/>-->
+
+    <!--<aop:aspectj-autoproxy proxy-target-class="true" />-->
+
+    <context:component-scan base-package="study.funzin.beans" />
+
         <!--<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />-->
     <!--</context:component-scan>-->
 
