@@ -1,5 +1,6 @@
 package study.funzin.beans;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -17,7 +18,7 @@ public class BeanMain {
         ExampleBean ex1 = (ExampleBean)ctx.getBean("exampleBean");
         ExampleBean2 ex2 = (ExampleBean2)ctx.getBean("exampleBean2");
 
-        Calls calls = (Calls)ctx.getBean(Calls.class);
+//        Calls calls = (Calls)ctx.getBean(Calls.class);
 //        calls.callMethod();
 
     }

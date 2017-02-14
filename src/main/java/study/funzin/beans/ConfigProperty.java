@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 /**
  * Created by JE on 2017-02-09.
  */
+//@Component(value = "config")
 @Component
 public class ConfigProperty {
 

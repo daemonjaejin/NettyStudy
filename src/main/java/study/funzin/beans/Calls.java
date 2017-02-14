@@ -6,16 +6,17 @@ import org.springframework.stereotype.Component;
 /**
  * Created by JE on 2017-02-09.
  */
-@Component
+//@Component(value = "calls")
+//@Component
 public class Calls {
 
-//    @Autowired
-//    private ConfigProperty configProperty;
-//
-//    public void callMethod(){
-//        System.out.println(configProperty.getTest());
-//        System.out.println(configProperty.getTest2());
-//        System.out.println(configProperty.getTest100());
-//    }
+//    @Autowired(required = true)
+    private ConfigProperty config;
+
+    public void callMethod(){
+//        System.out.println(config.getTest());
+//        System.out.println(config.getTest2());
+//        System.out.println(config.getTest100());
+    }
 
 }
