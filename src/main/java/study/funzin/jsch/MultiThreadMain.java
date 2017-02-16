@@ -131,16 +131,20 @@ class Thread2 implements Runnable{
 
 class Thread3 implements Runnable{
 
-    String path = "/home/tango/lee/test2";
-
     @Override
     public void run(){
+
+        String path = "/home/tango/";
+
         try {
             Thread.sleep(10000);
             MultiThreadMain.check = false;
             System.out.println("Stop Thread");
             JschHandler.jschDisConnect();
             JschHandler.path = path;
+            JschHandler.host = "192.3.21.162";
+            JschHandler.port = 22;
+            JschHandler.user = "tango";
             JschHandler.jschConnect();
             JschHandler.selectConnect(1);
             MultiThreadMain.check = true;
