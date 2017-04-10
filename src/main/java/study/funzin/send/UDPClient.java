@@ -36,8 +36,8 @@ public class UDPClient {
 
 
                     DatagramSocket clientSocket = new DatagramSocket();
-//                    InetAddress IPAddress = InetAddress.getByName("219.240.99.75");
-                    InetAddress IPAddress = InetAddress.getByName("127.0.0.1");
+                    InetAddress IPAddress = InetAddress.getByName("219.240.99.75");
+//                    InetAddress IPAddress = InetAddress.getByName("127.0.0.1");
 //                    InetAddress IPAddress = InetAddress.getByName("192.168.219.15");
                     String data = "590000040000000000042c000900080045005020000059000f001300323031362d31302d30352031353a35393a35343c040500300101000" + i;
 //                    String data = "010000040000000000042c000900080045005020000059000f001300323031362d31302d30352031353a35393a35343c040500300101000" + i;
@@ -45,7 +45,7 @@ public class UDPClient {
                     DatagramPacket sendPacket = new DatagramPacket(toBytes(data), toBytes(data).length, IPAddress, 1800);
                     clientSocket.send(sendPacket);
                     clientSocket.close();
-                    Thread.sleep(60000);
+                    Thread.sleep(1000);
 
                 }
                 lastNum++;
