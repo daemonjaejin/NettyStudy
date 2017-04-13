@@ -42,13 +42,37 @@ public class JsonMain {
 //                System.out.println(list.toString());
 
                 for(JsonNode node : jsonNode) {
-                    System.out.println("node : " + node.toString());
-                    System.out.println("node name : " + node.fieldNames());
-                    System.out.println("val : " + node.path("1058"));
-                    JsonNode node2 = node.path("1058");
-                    for (JsonNode nodein : node2){
-                        System.out.println("val : " + nodein.path("44"));
-                        System.out.println("val2 : " + nodein.path("45"));
+//                    System.out.println("node : " + node.toString());
+//                    System.out.println("val : " + node.path("1058"));
+//                    System.out.println("test : " + node.path("1058").findValuesAsText("44"));
+                    List<String> list1 = node.path("1058").findValuesAsText("44");
+                    List<String> list2 = node.path("1058").findValuesAsText("45");
+                    List<String> list3 = node.path("1059").findValuesAsText("44");
+                    List<String> list4 = node.path("1059").findValuesAsText("45");
+                    for (String str : list1){
+                        System.out.println("str1 : " + str);
+                    }
+                    for (String str : list2){
+                        System.out.println("str2 : " + str);
+                    }
+                    for (String str : list3){
+                        System.out.println("str3 : " + str);
+                    }
+                    for (String str : list4){
+                        System.out.println("str4 : " + str);
+                    }
+                    for (JsonNode node2 : node.path("1058")){
+                        if(node2.path("44").booleanValue()){
+                            System.out.println("val : " + node2.path("44"));
+                        }
+                        if(node2.path("45").booleanValue()){
+                            System.out.println("val2 : " + node2.path("45"));
+                        }
+                    }
+
+                    for (JsonNode node2 : node.path("1059")){
+                        System.out.println("val : " + node2.path("44"));
+                        System.out.println("val2 : " + node2.path("45"));
                     }
 
                 }
