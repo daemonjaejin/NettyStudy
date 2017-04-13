@@ -45,10 +45,14 @@ public class JsonMain {
 //                    System.out.println("node : " + node.toString());
 //                    System.out.println("val : " + node.path("1058"));
 //                    System.out.println("test : " + node.path("1058").findValuesAsText("44"));
-                    List<String> list1 = node.path("1058").findValuesAsText("44");
-                    List<String> list2 = node.path("1058").findValuesAsText("45");
-                    List<String> list3 = node.path("1059").findValuesAsText("44");
-                    List<String> list4 = node.path("1059").findValuesAsText("45");
+//                    List<String> list1 = node.path("1058").findValuesAsText("44");
+//                    List<String> list2 = node.path("1058").findValuesAsText("45");
+//                    List<String> list3 = node.path("1059").findValuesAsText("44");
+//                    List<String> list4 = node.path("1059").findValuesAsText("45");
+                    List<String> list1 = node.path(String.valueOf(1058)).findValuesAsText(String.valueOf(44));
+                    List<String> list2 = node.path(String.valueOf(1058)).findValuesAsText(String.valueOf(45));
+                    List<String> list3 = node.path(String.valueOf(1059)).findValuesAsText(String.valueOf(44));
+                    List<String> list4 = node.path(String.valueOf(1059)).findValuesAsText(String.valueOf(45));
                     for (String str : list1){
                         System.out.println("str1 : " + str);
                     }
