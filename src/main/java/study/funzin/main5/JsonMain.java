@@ -17,12 +17,12 @@ public class JsonMain {
                 "{\"167\":\"0\"},{\"168\":\"0\"},{\"1058\":[{\"44\":\"4\"},{\"45\":\"172.28.177.4\"},{\"46\":\"\"},{\"161\":\"1700\"}," +
                 "{\"162\":\"1700\"}]},{\"1059\":[{\"44\":\"4\"},{\"45\":\"172.28.19.4\"},{\"46\":\"\"},{\"161\":\"1700\"},{\"162\":\"1700\"}]}]}";
 
-        String result = getJson(word, 1018, 1058);
+        String result = getJson(word, 1018, 1058, 44);
         System.out.println("result : " + result);
 
     }
 
-    public static String getJson(String word, Integer pCompoundKey, Integer pKey){
+    public static String getJson(String word, Integer pCompoundKey, Integer pKey, Integer innerKey){
 
         ObjectMapper objectMapper = new ObjectMapper();
         String value = "";
